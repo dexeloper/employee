@@ -1,0 +1,33 @@
+.quotation-main-container {
+  width: 1200px;
+  height: 600px;
+  margin: 20px auto;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.quotation-details-name {
+  display: flex;
+  margin-top: 30px;
+}
+
+.quotation-client-name {
+  width: 200px;
+  margin-right: 5px;
+}
+
+.quotation-email {
+  width: 200px;
+  margin-right: 5px;
+}
+
+.quotation-phoneno {
+  width: 200px;
+  margin-right: 5px;
+}
+
+.quotation-created {
+  width: 200px;
+  margin-right: 5px;
+}

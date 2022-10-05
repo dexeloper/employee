@@ -1,0 +1,122 @@
+.project-main-container {
+  width: 1200px;
+  height: 600px;
+  margin: 20px auto;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.add-project-btn {
+  width: 200px;
+  height: 50px;
+  font-size: 17px;
+  background-color: #f9a23f;
+  color: white;
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.projects-menu {
+  margin: 20px 0px;
+  width: 700px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  font-weight: bold;
+  transition: 0.25s all ease-in;
+}
+
+.ongoingp-box {
+  position: absolute;
+  display: block;
+}
+
+.upcomingp-box-hide {
+  display: none;
+}
+
+.completedp-box-hide {
+  display: none;
+}
+
+.project-details-name {
+  display: flex;
+  margin-top: 30px;
+}
+
+.project-name {
+  width: 170px;
+  margin-right: 5px;
+}
+
+.project-id {
+  width: 140px;
+  margin-right: 5px;
+}
+
+.project-type {
+  width: 130px;
+  margin-right: 5px;
+}
+
+.project-assignedto {
+  width: 150px;
+  margin-right: 5px;
+}
+
+.project-date {
+  width: 135px;
+  margin-right: 5px;
+}
+
+.project-deadline {
+  width: 135px;
+  margin-right: 5px;
+}
+
+.project-progress {
+  width: 135px;
+  margin-right: 5px;
+}
+
+.project-entered-details {
+  display: flex;
+}
+
+.project-divider {
+  margin: 15px 0px;
+  opacity: 0.35;
+}
+
+.cl-det-entered-font {
+  font-size: 14px;
+}
+
+.client-icons {
+}
+
+.cl-icon {
+  margin: 0px 10px 0px 20px;
+}
+
+.ongoingp,
+.upcomingp,
+.completedp {
+  cursor: pointer;
+  transition: 0.25s all ease-in-out;
+}
+
+.ongoingp:hover,
+.upcomingp:hover,
+.completedp:hover {
+  color: #f9a23f;
+  transition: 0.25s all ease-in-out;
+}
+
+.status-projects-onclick {
+  color: #f9a23f;
+  font-size: 24px;
+  text-decoration: underline;
+  transition: 0.25s all ease-in;
+}

@@ -1,0 +1,28 @@
+.faq-question-box {
+  width: 1200px;
+  padding: 27.5px 25px 27.5px 25px;
+  font-size: 18px;
+  box-sizing: border-box;
+  margin: 20px auto;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+  color: #f9a23f;
+  cursor: pointer;
+  transition: 0.25s all ease-in;
+}
+
+.faq-question:hover {
+  text-decoration: underline;
+  transition: 0.25s all ease-in;
+}
+
+.faq-answer {
+  font-size: 16px;
+  margin-top: 15px;
+}

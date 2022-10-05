@@ -1,0 +1,42 @@
+.e-project-report-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  justify-content: center;
+  width: 200px;
+  height: 100px;
+  background-color: #f8f8f8;
+  box-sizing: border-box;
+  padding: 15px;
+  border-radius: 20px;
+  margin: 20px auto;
+}
+
+.e-p-r-number {
+  margin-bottom: 5px;
+}
+
+.status-project {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.e-project-reports-list {
+  display: flex;
+}
+
+.projects-graph-container {
+  width: 600px;
+  height: 400px;
+  margin-top: 25px;
+  margin-left: 25px;
+  padding: 30px;
+  box-sizing: border-box;
+  border-radius: 25px;
+  background-color: #f8f8f8;
+}
+
+.project-graph-heading {
+  font-size: 26px;
+}
