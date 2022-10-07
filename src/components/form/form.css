@@ -1,0 +1,69 @@
+.form-container {
+  width: 600px;
+  height: 650px;
+  margin: 100px auto;
+  box-sizing: border-box;
+  padding: 0px 25px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.form-element-container {
+  margin: 25px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.form-field {
+  margin-top: 10px;
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  padding-left: 15px;
+  outline: none;
+  border: 2px solid #ccc;
+  transition: 0.25s all ease-in-out;
+}
+
+.form-field:focus {
+  border: 2px solid #f9a23f;
+  transition: 0.25s all ease-in-out;
+}
+
+::placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.form-submit-btn {
+  width: 200px;
+  height: 50px;
+  float: right;
+  background-color: #f9a23f;
+  color: white;
+  font-size: 18px;
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  cursor: pointer;
+  transition: 0.25s all ease-in;
+}
+
+.form-submit-btn:hover {
+  transform: translateY(-5px);
+  transition: 0.25s all ease-in;
+}

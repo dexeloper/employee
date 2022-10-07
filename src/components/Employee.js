@@ -10,6 +10,7 @@ import Invoices from "./invoices/Invoices.js";
 import RateList from "./ratelist/RateList.js";
 import Portfolio from "./portfolio/Portfolio.js";
 import FAQ from "./faq/FAQ.js";
+import Form from "./form/Form.js";
 
 import "./employee.css";
 
@@ -27,6 +28,7 @@ const Employee = () => {
           <Route exact path="/employee/ratelist" element={<RateList />} />
           <Route exact path="/employee/portfolio" element={<Portfolio />} />
           <Route exact path="/employee/faq" element={<FAQ />} />
+          <Route exact path="/employee/form" element={<Form />} />
         </Routes>
       </div>
     </BrowserRouter>
