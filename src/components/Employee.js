@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import SideMenu from "./sidemenu/SideMenu";
+import Attendance from "./attendance/Attendance";
 import Dashboard from "./dashboard/Dashboard.js";
 import Clients from "./clients/Clients.js";
 import Projects from "./projects/Projects.js";

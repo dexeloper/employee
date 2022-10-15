@@ -1,6 +1,7 @@
 import { React } from "react";
 
 import SideMenuLink from "./SideMenuLink";
+import Attendance from "../attendance/Attendance";
 
 import "./styles/sideMenu.css";
 
@@ -68,6 +69,9 @@ const SideMenu = () => {
           linkName="FAQ"
           icon="far fa-question-circle sm-fa-icons"
         />
+      </div>
+      <div>
+        <Attendance />
       </div>
     </div>
   );

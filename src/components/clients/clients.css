@@ -22,7 +22,7 @@
 }
 
 .client-search:focus {
-  border: 2.5px solid #70a7ff;
+  border: 2.5px solid #f9a23f;
   transition: 0.25s all ease-in;
 }
 
@@ -34,6 +34,7 @@
   color: white;
   border: none;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  cursor: pointer;
 }
 
 .search-client-btn {
@@ -117,4 +118,130 @@
 
 .cl-icon {
   margin: 0px 10px 0px 20px;
+  cursor: pointer;
+}
+
+.client-row-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0px;
+}
+
+/************************************/
+
+#main-overlay-container {
+  display: none;
+  overflow-y: scroll;
+  position: absolute !important;
+}
+
+.overlay-container {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute !important;
+  z-index: 1000;
+}
+
+.client-overlay-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overlay-close {
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
+  background-color: #ff5e5e;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: "Varela Round", sans-serif;
+}
+
+.add-client-overlay {
+  position: relative;
+  z-index: 10;
+  width: 1000px;
+  padding: 30px;
+  box-sizing: border-box;
+  margin: 150px auto;
+  background-color: white;
+  overscroll-behavior: contain;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.add-client-header {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.add-client-divider {
+  width: 100%;
+  height: 3px;
+  border-radius: 5px;
+  background-color: #ffbd42;
+  margin-top: 20px;
+}
+
+.ci-container {
+  margin: 15px 0px;
+}
+
+.ci-form-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ci-form-element {
+  width: 275px;
+  height: 40px;
+  outline: none;
+  border: 2.5px solid #cfcfcf;
+  border-radius: 15px;
+  padding: 0px 20px;
+  box-sizing: border-box;
+  transition: all 0.25s ease-in;
+}
+
+.ci-form-element:focus {
+  border: 2.5px solid #ffbd42;
+  transition: all 0.25s ease-in;
+}
+
+.ci-form-element-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0px 10px 0px;
+}
+
+.ci-form-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.add-client-submit-btn {
+  width: 230px;
+  height: 50px;
+  font-size: 17px;
+  background-color: #f9a23f;
+  color: white;
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  cursor: pointer;
+  margin: 25px auto 0px auto;
+}
+
+.ci-form-per-header {
+  font-size: 24px;
+  margin-top: 25px;
 }
