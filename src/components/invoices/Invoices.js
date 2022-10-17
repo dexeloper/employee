@@ -1,12 +1,32 @@
 import { React, useEffect } from "react";
 import $ from "jquery";
 
-import TopBar from "../topbar/TopBar";
+import TopBar from "../../employeeDashboard/topbar/TopBar";
 import InvoiceRow from "./InvoiceRow";
 
 import "./invoices.css";
 
 const Invoices = () => {
+  const [invoicesData, setInvoicesData] = useState([]);
+  const [addInvoices, setAddInvoices] = useState({
+    currency: "",
+    companyDetail: "",
+    customerName: "",
+    customerId: "",
+    details: "",
+    billTo: "",
+    shipTo: "",
+    dateOfInvoices: "",
+    termsConditions: "",
+    bankDetail: "",
+    items: "",
+  });
+
+  const [consoleErr, setConsoleErr] = useState();
+  const showErrFunc = () => {
+    setConsoleErr(null);
+  };
+
   useEffect(() => {
     $("#add-invoices").click(() => {
       $("body").css("overflow", "hidden");
@@ -30,8 +50,49 @@ const Invoices = () => {
       );
       $("#addrows").stopImmediatePropagation();
     });
+
+    getData();
   }, []);
 
+  const getData = async () => {
+    let data = await fetch(`/binvoice`, {
+      method: "GET",
+      headers: {
+        "content-Type": "application/json",
+      },
+    });
+    data = await data.json();
+
+    setInvoicesData(data.result);
+  };
+
+  function handleOnchange(event) {
+    const { name, value } = event.target;
+
+    setAddClients((preFromData) => ({
+      ...preFromData,
+      [name]: value,
+    }));
+  }
+
+  async function handleFormData(event) {
+    event.preventDefault();
+    // formData.append(addClients);
+    const result = await fetch(`/binvoice`, {
+      method: "post",
+      body: JSON.stringify({ addInvoices }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // result = await result.json();
+    if (result.err) {
+      setConsoleErr(result.err);
+    } else {
+      console.log(`result==${result}`);
+    }
+  }
   return (
     <>
       {/**/}
@@ -53,7 +114,7 @@ const Invoices = () => {
                   <input
                     className="invoices-form-element"
                     type="date"
-                    name="invoices-date"
+                    name="dateOfInvoices"
                   />
                 </div>
                 <div className="invoices-form-element-container">
@@ -62,7 +123,7 @@ const Invoices = () => {
                     className="invoices-form-element"
                     type="text"
                     placeholder="Currency"
-                    name="invoices-currency"
+                    name="currency"
                   />
                 </div>
               </div>
@@ -73,7 +134,7 @@ const Invoices = () => {
                   <textarea
                     className="invoices-form-textarea"
                     placeholder="Company Details"
-                    name="invoices-company-details"
+                    name="companyDetail"
                   ></textarea>
                 </div>
               </div>
@@ -84,7 +145,7 @@ const Invoices = () => {
                   <select
                     style={{ cursor: "pointer" }}
                     className="invoices-form-element"
-                    name="invoices-client-name"
+                    name="customerName"
                     id="invoices-client-name"
                   >
                     <option value="select">Select</option>
@@ -98,7 +159,7 @@ const Invoices = () => {
                   <textarea
                     className="invoices-form-textarea"
                     placeholder="Details"
-                    name="invoices-details"
+                    name="details"
                   ></textarea>
                 </div>
               </div>
@@ -110,7 +171,7 @@ const Invoices = () => {
                       style={{ width: "445px" }}
                       className="invoices-form-textarea"
                       placeholder="Bill To"
-                      name="invoices-billTo"
+                      name="billTo"
                     ></textarea>
                   </div>
                 </div>
@@ -121,7 +182,7 @@ const Invoices = () => {
                       style={{ width: "445px" }}
                       className="invoices-form-textarea"
                       placeholder="Ship To"
-                      name="invoices-shipTo"
+                      name="shipTo"
                     ></textarea>
                   </div>
                 </div>
@@ -230,7 +291,7 @@ const Invoices = () => {
                   <textarea
                     className="invoices-form-textarea"
                     placeholder="Terms and Conditions"
-                    name="invoices-tnc"
+                    name="termsConditions"
                   ></textarea>
                 </div>
               </div>
@@ -240,7 +301,7 @@ const Invoices = () => {
                   <textarea
                     className="invoices-form-textarea"
                     placeholder="Bank Details"
-                    name="invoices-bank-details"
+                    name="bankDetail"
                   ></textarea>
                 </div>
               </div>
