@@ -7,6 +7,35 @@ import QuotationRow from "./QuotationRow";
 import "./quotation.css";
 
 const Quotation = () => {
+  const [quotationsData, setQuotationsData] = useState([]);
+  const [addQuotations, setAddQuotations] = useState({
+    currency: "",
+    companyDetail: "",
+    customerName: "",
+    customerId: "",
+    details: "",
+    billTo: "",
+    shipTo: "",
+    dateOfQuotation: "",
+    termsConditions: "",
+    bankDetail: "",
+    items: [
+      {
+        itemName: "",
+        itemCode: "",
+        quantity: "",
+        unit: "",
+        price: "",
+        amount: "",
+      },
+    ],
+  });
+
+  const [consoleErr, setConsoleErr] = useState();
+  const showErrFunc = () => {
+    setConsoleErr(null);
+  };
+
   useEffect(() => {
     $("#quotation-overlay-open").click(() => {
       $("body").css("overflow", "hidden");
@@ -30,7 +59,49 @@ const Quotation = () => {
       );
       $("#addrows").stopImmediatePropagation();
     });
+
+    getData();
   }, []);
+
+  const getData = async () => {
+    let data = await fetch(``, {
+      method: "GET",
+      headers: {
+        "content-Type": "application/json",
+      },
+    });
+    data = await data.json();
+
+    setQuotationsData(data.result);
+  };
+
+  function handleOnchange(event) {
+    const { name, value } = event.target;
+
+    setAddQuotations((preFormData) => ({
+      ...preFormData,
+      [name]: value,
+    }));
+  }
+
+  async function handleFormData(event) {
+    event.preventDefault();
+    // formData.append(addClients);
+    const result = await fetch(``, {
+      method: "post",
+      body: JSON.stringify({ addQuotations }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // result = await result.json();
+    if (result.err) {
+      setConsoleErr(result.err);
+    } else {
+      console.log(`result==${result}`);
+    }
+  }
 
   return (
     <>
@@ -52,7 +123,8 @@ const Quotation = () => {
                   <input
                     className="quote-form-element"
                     type="date"
-                    name="quotation-date"
+                    name="dateOfQuotation"
+                    onChange={handleOnchange}
                   />
                 </div>
                 <div className="quote-form-element-container">
@@ -61,7 +133,8 @@ const Quotation = () => {
                     className="quote-form-element"
                     type="text"
                     placeholder="Currency"
-                    name="quotation-currency"
+                    name="currency"
+                    onChange={handleOnchange}
                   />
                 </div>
               </div>
@@ -71,7 +144,8 @@ const Quotation = () => {
                   <textarea
                     className="quote-form-textarea"
                     placeholder="Company Details"
-                    name="quote-company-details"
+                    name="companyDetail"
+                    onChange={handleOnchange}
                   ></textarea>
                 </div>
               </div>
@@ -82,8 +156,9 @@ const Quotation = () => {
                   <select
                     style={{ cursor: "pointer" }}
                     className="quote-form-element"
-                    name="quote-client-name"
+                    name="customerName"
                     id="quote-client-name"
+                    onChange={handleOnchange}
                   >
                     <option value="select">Select</option>
                     {/*Fetch Client List*/}
@@ -96,7 +171,8 @@ const Quotation = () => {
                   <textarea
                     className="quote-form-textarea"
                     placeholder="Details"
-                    name="quotation-details"
+                    name="details"
+                    onChange={handleOnchange}
                   ></textarea>
                 </div>
               </div>
@@ -108,7 +184,8 @@ const Quotation = () => {
                       style={{ width: "445px" }}
                       className="quote-form-textarea"
                       placeholder="Bill To"
-                      name="quotation-billto"
+                      name="billTo"
+                      onChange={handleOnchange}
                     ></textarea>
                   </div>
                 </div>
@@ -119,7 +196,8 @@ const Quotation = () => {
                       style={{ width: "445px" }}
                       className="quote-form-textarea"
                       placeholder="Ship To"
-                      name="quotation-shipto"
+                      name="shipTo"
+                      onChange={handleOnchange}
                     ></textarea>
                   </div>
                 </div>
@@ -139,48 +217,54 @@ const Quotation = () => {
                     <input
                       type="text"
                       className="quote-table-form-item"
-                      name="quotation-item-name"
+                      name="itemName"
                       placeholder="Item Name"
+                      onChange={handleOnchange}
                     />
                   </td>
                   <td>
                     <input
                       type="text"
                       className="quote-table-form-item"
-                      name="quotation-item-code"
+                      name="itemCode"
                       placeholder="Item Code"
+                      onChange={handleOnchange}
                     />
                   </td>
                   <td>
                     <input
                       type="number"
                       className="quote-table-form-item"
-                      name="quotation-item-quantity"
+                      name="quantity"
                       placeholder="Quantity"
+                      onChange={handleOnchange}
                     />
                   </td>
                   <td>
                     <input
                       type="text"
                       className="quote-table-form-item"
-                      name="quotation-item-unit"
+                      name="unit"
                       placeholder="Unit"
+                      onChange={handleOnchange}
                     />
                   </td>
                   <td>
                     <input
                       type="number"
                       className="quote-table-form-item"
-                      name="quotation-item-price-per-unit"
+                      name="price"
                       placeholder="Price per unit"
+                      onChange={handleOnchange}
                     />
                   </td>
                   <td>
                     <input
                       type="number"
                       className="quote-table-form-item"
-                      name="quotation-item-amount"
+                      name="amount"
                       placeholder="Amount"
+                      onChange={handleOnchange}
                     />
                   </td>
                 </tr>
@@ -228,7 +312,8 @@ const Quotation = () => {
                   <textarea
                     className="quote-form-textarea"
                     placeholder="Terms and Conditions"
-                    name="quotation-tnc"
+                    name="termsConditions"
+                    onChange={handleOnchange}
                   ></textarea>
                 </div>
               </div>
@@ -238,7 +323,8 @@ const Quotation = () => {
                   <textarea
                     className="quote-form-textarea"
                     placeholder="Bank Details"
-                    name="quotation-bankdetails"
+                    name="bankDetail"
+                    onChange={handleOnchange}
                   ></textarea>
                 </div>
               </div>
@@ -251,6 +337,7 @@ const Quotation = () => {
                   type="reset"
                   value="Discard"
                   className="discard-btn"
+                  onChange={handleOnchange}
                 />
               </div>
             </form>

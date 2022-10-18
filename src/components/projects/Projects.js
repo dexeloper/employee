@@ -9,6 +9,26 @@ import CompletedProjects from "./CompletedProjects";
 import "./projects.css";
 
 const Projects = () => {
+  const [projectsData, setProjectsData] = useState([]);
+
+  const [addProjects, setAddProjects] = useState({
+    name: "",
+    projectType: "",
+    employeeId: "",
+    ClientId: "",
+    Amount: "",
+    startDate: "",
+    endDate: "",
+    sheetType: "",
+    sheetKey: "",
+    comment: "",
+  });
+
+  const [consoleErr, setConsoleErr] = useState();
+  const showErrFunc = () => {
+    setConsoleErr(null);
+  };
+
   useEffect(() => {
     $("#upcomingp-box").hide();
     $("#completedp-box").hide();
@@ -52,7 +72,48 @@ const Projects = () => {
       $("body").css("overflow", "scroll");
       $("#main-overlay-container").fadeOut(250);
     });
+
+    getData();
   }, []);
+
+  const getData = async () => {
+    let data = await fetch(``, {
+      method: "GET",
+      headers: {
+        "content-Type": "application/json",
+      },
+    });
+    data = await data.json();
+
+    setProjectsData(data.result);
+  };
+
+  function handleOnchange(event) {
+    const { name, value, type, files } = event.target;
+    setAddProjects((preFormData) => ({
+      ...preFormData,
+      [name]: type === "file" ? files[0] : value,
+    }));
+  }
+
+  async function handleFormData(event) {
+    event.preventDefault();
+    // formData.append(addClients);
+    const result = await fetch(``, {
+      method: "post",
+      body: JSON.stringify({ addProjects }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // result = await result.json();
+    if (result.err) {
+      setConsoleErr(result.err);
+    } else {
+      console.log(`result==${result}`);
+    }
+  }
 
   const [dummyState, dummyStateController] = useState(true);
 
@@ -78,7 +139,8 @@ const Projects = () => {
                     className="pro-form-element"
                     type="text"
                     placeholder="Project Name"
-                    name="project-name"
+                    name="name"
+                    onChange={handleOnchange}
                   />
                 </div>
                 <div className="pro-form-element-container">
@@ -86,8 +148,9 @@ const Projects = () => {
                   <select
                     style={{ cursor: "pointer" }}
                     className="pro-form-element"
-                    name="project-type"
+                    name="projectType"
                     id="project-type"
+                    onChange={handleOnchange}
                   >
                     <option value="select">Select</option>
                     <option value="Residential">Residential</option>
@@ -99,8 +162,9 @@ const Projects = () => {
                   <select
                     style={{ cursor: "pointer" }}
                     className="pro-form-element"
-                    name="pro-form-employee"
+                    name="employeeId"
                     id="pro-form-employee"
+                    onChange={handleOnchange}
                   >
                     <option value="select">Select</option>
                     {/*Employees to be fetched here for drop down*/}
@@ -113,7 +177,8 @@ const Projects = () => {
                   <input
                     className="pro-form-element"
                     type="date"
-                    name="project-start-date"
+                    name="startDate"
+                    onChange={handleOnchange}
                   />
                 </div>
                 <div className="pro-form-element-container">
@@ -122,7 +187,8 @@ const Projects = () => {
                     className="pro-form-element"
                     type="number"
                     placeholder="Amount"
-                    name="project-amount"
+                    name="Amount"
+                    onChange={handleOnchange}
                   />
                 </div>
                 <div className="pro-form-element-container">
@@ -130,8 +196,9 @@ const Projects = () => {
                   <select
                     style={{ cursor: "pointer" }}
                     className="pro-form-element"
-                    name="client-of-project"
+                    name="ClientId"
                     id="client-of-project"
+                    onChange={handleOnchange}
                   >
                     <option value="select">Select</option>
                     {/*Clients Fetched Here*/}
@@ -144,7 +211,8 @@ const Projects = () => {
                   <input
                     className="pro-form-element"
                     type="date"
-                    name="project-dead-line"
+                    name="endDate"
+                    onChange={handleOnchange}
                   />
                 </div>
                 <div className="pro-form-element-container">
@@ -152,8 +220,9 @@ const Projects = () => {
                   <select
                     style={{ cursor: "pointer" }}
                     className="pro-form-element"
-                    name="project-sheet-type"
+                    name="sheetType"
                     id="project-sheet-type"
+                    onChange={handleOnchange}
                   >
                     <option value="select">Select</option>
                     <option value="PER Sheet">PER Sheet</option>
@@ -167,7 +236,8 @@ const Projects = () => {
                   <input
                     className="pro-form-image"
                     type="file"
-                    name="uploaded-sheet"
+                    name="sheetKey"
+                    onChange={handleOnchange}
                   />
                 </div>
               </div>
@@ -177,7 +247,8 @@ const Projects = () => {
                   <textarea
                     className="pro-form-textarea"
                     placeholder="Comments..."
-                    name="project-comments"
+                    name="comment"
+                    onChange={handleOnchange}
                   ></textarea>
                 </div>
               </div>

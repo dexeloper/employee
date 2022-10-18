@@ -1,12 +1,25 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import $ from "jquery";
+import AlertBlock from "../../../alertBlock/AlertBlock";
 
-import TopBar from "../topbar/TopBar";
+import TopBar from "../../employeeDashboard/topbar/TopBar";
 import ClientDetails from "./ClientDetails";
 
 import "./clients.css";
+const Clients = (props) => {
+  const [clientsData, setClientsData] = useState([]);
 
-const Clients = () => {
+  const [addClients, setAddClients] = useState({
+    name: "",
+    email: "",
+    contact: "",
+  });
+
+  const [consoleErr, setConsoleErr] = useState();
+  const showErrFunc = () => {
+    setConsoleErr(null);
+  };
+
   useEffect(() => {
     $("#client-overlay-open").click(() => {
       $("body").css("overflow", "hidden");
@@ -17,11 +30,56 @@ const Clients = () => {
       $("body").css("overflow", "scroll");
       $("#main-overlay-container").fadeOut(250);
     });
+    getData();
+    console.log("useEffect of Client");
   }, []);
+
+  const getData = async () => {
+    let data = await fetch(`/bgetData/client`, {
+      method: "GET",
+      headers: {
+        "content-Type": "application/json",
+      },
+    });
+    data = await data.json();
+
+    setClientsData(data.result);
+  };
+
+  function handleOnchange(event) {
+    const { name, value } = event.target;
+
+    setAddClients((preFormData) => ({
+      ...preFormData,
+      [name]: value,
+    }));
+  }
+
+  async function handleFormData(event) {
+    event.preventDefault();
+    // formData.append(addClients);
+    const result = await fetch(`/bclient`, {
+      method: "post",
+      body: JSON.stringify({ addClients }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // result = await result.json();
+    if (result.err) {
+      setConsoleErr(result.err);
+    } else {
+      console.log(`result==${result}`);
+    }
+  }
 
   return (
     <>
       {/*Overlay*/}
+      {consoleErr && (
+        <AlertBlock consoleErr={consoleErr} showErrFunc={showErrFunc} />
+      )}
       <div className="overlay-container" id="main-overlay-container">
         <div className="add-client-overlay">
           <div className="client-overlay-top">
@@ -32,7 +90,7 @@ const Clients = () => {
           </div>
           <div className="add-client-divider"></div>
           <div className="ci-container">
-            <form>
+            <form onSubmit={handleFormData}>
               <h2 className="ci-form-per-header">Client Information</h2>
               <div className="ci-form-row">
                 <div className="ci-form-element-container">
@@ -41,7 +99,9 @@ const Clients = () => {
                     className="ci-form-element"
                     type="text"
                     placeholder="Client Name"
-                    name="client-name"
+                    name="name"
+                    style={{ width: "275px" }}
+                    onChange={handleOnchange}
                   />
                 </div>
                 <div className="ci-form-element-container">
@@ -50,7 +110,9 @@ const Clients = () => {
                     className="ci-form-element"
                     type="email"
                     placeholder="Email Address"
-                    name="client-email"
+                    name="email"
+                    style={{ width: "275px" }}
+                    onChange={handleOnchange}
                   />
                 </div>
                 <div className="ci-form-element-container">
@@ -59,7 +121,9 @@ const Clients = () => {
                     className="ci-form-element"
                     type="number"
                     placeholder="Phone Number"
-                    name="client-phone"
+                    name="contact"
+                    style={{ width: "275px" }}
+                    onChange={handleOnchange}
                   />
                 </div>
               </div>
@@ -81,7 +145,7 @@ const Clients = () => {
         {/*Client Search*/}
 
         <div className="client-main-search-container">
-          <form>
+          <form onSubmit={handleFormData}>
             <div style={{ display: "flex" }}>
               <input
                 className="client-search"
@@ -112,7 +176,18 @@ const Clients = () => {
           </div>
           <hr className="client-divider" />
           <div>
-            <ClientDetails />
+            {clientsData.map((data) => {
+              return (
+                <ClientDetails
+                  key={data._id}
+                  id={data._id}
+                  name={data.name}
+                  email={data.email}
+                  contact={data.contact}
+                  date={data.date}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

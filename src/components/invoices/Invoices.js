@@ -19,7 +19,16 @@ const Invoices = () => {
     dateOfInvoices: "",
     termsConditions: "",
     bankDetail: "",
-    items: "",
+    items: [
+      {
+        itemName: "",
+        itemCode: "",
+        quantity: "",
+        unit: "",
+        price: "",
+        amount: "",
+      },
+    ],
   });
 
   const [consoleErr, setConsoleErr] = useState();
@@ -55,7 +64,7 @@ const Invoices = () => {
   }, []);
 
   const getData = async () => {
-    let data = await fetch(`/binvoice`, {
+    let data = await fetch(``, {
       method: "GET",
       headers: {
         "content-Type": "application/json",
@@ -69,8 +78,8 @@ const Invoices = () => {
   function handleOnchange(event) {
     const { name, value } = event.target;
 
-    setAddClients((preFromData) => ({
-      ...preFromData,
+    setAddInvoices((preFormData) => ({
+      ...preFormData,
       [name]: value,
     }));
   }
@@ -78,7 +87,7 @@ const Invoices = () => {
   async function handleFormData(event) {
     event.preventDefault();
     // formData.append(addClients);
-    const result = await fetch(`/binvoice`, {
+    const result = await fetch(``, {
       method: "post",
       body: JSON.stringify({ addInvoices }),
       headers: {
@@ -93,6 +102,7 @@ const Invoices = () => {
       console.log(`result==${result}`);
     }
   }
+
   return (
     <>
       {/**/}
@@ -106,7 +116,7 @@ const Invoices = () => {
           </div>
           <div className="add-invoices-divider"></div>
           <div className="invoices-container">
-            <form>
+            <form onSubmit={handleFormData}>
               <h2 className="invoices-form-per-header">Enter Details</h2>
               <div className="invoices-form-row">
                 <div className="invoices-form-element-container">
@@ -115,6 +125,7 @@ const Invoices = () => {
                     className="invoices-form-element"
                     type="date"
                     name="dateOfInvoices"
+                    onChange={handleOnchange}
                   />
                 </div>
                 <div className="invoices-form-element-container">
@@ -124,6 +135,7 @@ const Invoices = () => {
                     type="text"
                     placeholder="Currency"
                     name="currency"
+                    onChange={handleOnchange}
                   />
                 </div>
               </div>
@@ -135,6 +147,7 @@ const Invoices = () => {
                     className="invoices-form-textarea"
                     placeholder="Company Details"
                     name="companyDetail"
+                    onChange={handleOnchange}
                   ></textarea>
                 </div>
               </div>
@@ -146,6 +159,7 @@ const Invoices = () => {
                     style={{ cursor: "pointer" }}
                     className="invoices-form-element"
                     name="customerName"
+                    onChange={handleOnchange}
                     id="invoices-client-name"
                   >
                     <option value="select">Select</option>
@@ -160,6 +174,7 @@ const Invoices = () => {
                     className="invoices-form-textarea"
                     placeholder="Details"
                     name="details"
+                    onChange={handleOnchange}
                   ></textarea>
                 </div>
               </div>
@@ -172,6 +187,7 @@ const Invoices = () => {
                       className="invoices-form-textarea"
                       placeholder="Bill To"
                       name="billTo"
+                      onChange={handleOnchange}
                     ></textarea>
                   </div>
                 </div>
@@ -183,6 +199,7 @@ const Invoices = () => {
                       className="invoices-form-textarea"
                       placeholder="Ship To"
                       name="shipTo"
+                      onChange={handleOnchange}
                     ></textarea>
                   </div>
                 </div>
@@ -202,48 +219,54 @@ const Invoices = () => {
                     <input
                       type="text"
                       className="invoices-table-form-item"
-                      name="invoices-item-name"
+                      name="itemName"
                       placeholder="Item Name"
+                      onChange={handleOnchange}
                     />
                   </td>
                   <td>
                     <input
                       type="text"
                       className="invoices-table-form-item"
-                      name="invoices-item-code"
+                      name="itemCode"
                       placeholder="Item Code"
+                      onChange={handleOnchange}
                     />
                   </td>
                   <td>
                     <input
                       type="number"
                       className="invoices-table-form-item"
-                      name="invoices-item-quantity"
+                      name="quantity"
                       placeholder="Quantity"
+                      onChange={handleOnchange}
                     />
                   </td>
                   <td>
                     <input
                       type="text"
                       className="invoices-table-form-item"
-                      name="invoices-item-unit"
+                      name="unit"
                       placeholder="Unit"
+                      onChange={handleOnchange}
                     />
                   </td>
                   <td>
                     <input
                       type="number"
                       className="invoices-table-form-item"
-                      name="invoices-item-price-per-unit"
+                      name="price"
                       placeholder="Price per unit"
+                      onChange={handleOnchange}
                     />
                   </td>
                   <td>
                     <input
                       type="number"
                       className="invoices-table-form-item"
-                      name="invoices-item-amount"
+                      name="amount"
                       placeholder="Amount"
+                      onChange={handleOnchange}
                     />
                   </td>
                 </tr>
@@ -292,6 +315,7 @@ const Invoices = () => {
                     className="invoices-form-textarea"
                     placeholder="Terms and Conditions"
                     name="termsConditions"
+                    onChange={handleOnchange}
                   ></textarea>
                 </div>
               </div>
@@ -302,6 +326,7 @@ const Invoices = () => {
                     className="invoices-form-textarea"
                     placeholder="Bank Details"
                     name="bankDetail"
+                    onChange={handleOnchange}
                   ></textarea>
                 </div>
               </div>
